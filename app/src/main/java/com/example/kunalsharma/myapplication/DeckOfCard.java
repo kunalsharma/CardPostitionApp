@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -88,7 +89,6 @@ public class DeckOfCard extends Activity {
 
         if(!(firstTime == 0)){
             Collections.shuffle(arrayCards);
-            firstTime++;
         }else{
             firstTime++;
         }
@@ -96,12 +96,16 @@ public class DeckOfCard extends Activity {
         gridAdapter = new GridAdapter(this,arrayCards);
         gridView.setAdapter(gridAdapter);
         gridAdapter.notifyDataSetChanged();
+
         String positionOfSpades= "";
         for(int i=0;i<arrayCards.size() ;i++){
-                if(arrayCards.get(i).contains("hearts")){
+                if(arrayCards.get(i).toString().contains("hearts")){
                     positionOfSpades += i +", ";
+
                 }
         }
+        Log.e("Updated",""+positionOfSpades.length());
+        positionOfSpades = positionOfSpades.substring(0,(positionOfSpades.length()-2));
         tvspades.setText(positionOfSpades);
     }
 
